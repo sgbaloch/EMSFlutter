@@ -1,10 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:emsflutter/screens/home_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import './resources/AppColors.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
-void main() async{
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   runApp(const MyApp());
@@ -16,25 +18,24 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
-          resizeToAvoidBottomInset: false,
-          body: Container(
-          child: LoginInPage(),
-        ),
+        resizeToAvoidBottomInset: false,
+        body: LoginInPage(),
       ),
     );
   }
 }
 
 class LoginInPage extends StatefulWidget {
+  const LoginInPage({Key? key}) : super(key: key);
+
   @override
   _LoginInPageState createState() => _LoginInPageState();
 }
 
 class _LoginInPageState extends State<LoginInPage> {
-
   final emailController = TextEditingController();
   final passController = TextEditingController();
 
@@ -67,7 +68,7 @@ class _LoginInPageState extends State<LoginInPage> {
                       width: 90,
                       height: 90,
                     ),
-                    Text(
+                    const Text(
                       "Employee Attendance System",
                       style: TextStyle(color: Colors.white, fontSize: 18),
                     )
@@ -80,7 +81,7 @@ class _LoginInPageState extends State<LoginInPage> {
             flex: 6,
             child: Container(
               width: double.infinity,
-              padding: EdgeInsets.only(left: 25, right: 25),
+              padding: const EdgeInsets.only(left: 25, right: 25),
               decoration: const BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.only(
@@ -91,7 +92,7 @@ class _LoginInPageState extends State<LoginInPage> {
                 children: [
                   Container(
                     width: double.infinity,
-                    margin: EdgeInsets.only(top: 40),
+                    margin: const EdgeInsets.only(top: 40),
                     child: const Text(
                       "Email",
                       style: TextStyle(
@@ -99,14 +100,12 @@ class _LoginInPageState extends State<LoginInPage> {
                     ),
                   ),
                   Container(
-                    margin: EdgeInsets.only(top: 10),
-                    padding: EdgeInsets.all(0),
+                    margin: const EdgeInsets.only(top: 10),
+                    padding: const EdgeInsets.all(0),
                     decoration: const BoxDecoration(
                         border: Border(
                             bottom: BorderSide(
-                                width: 1,
-                                color: AppColors.TEXT_INPUT_BORDER))
-                    ),
+                                width: 1, color: AppColors.TEXT_INPUT_BORDER))),
                     child: Row(
                       children: [
                         Image.asset(
@@ -116,24 +115,22 @@ class _LoginInPageState extends State<LoginInPage> {
                         ),
                         Expanded(
                             child: TextField(
-                              controller: emailController,
+                          controller: emailController,
                           keyboardType: TextInputType.emailAddress,
-                          style: const TextStyle(
-                            fontSize: 14
-                          ),
+                          style: const TextStyle(fontSize: 14),
                           decoration: const InputDecoration(
-                            hintText: "Your Email",
-                            border: InputBorder.none,
-                            isDense: true,
-                            contentPadding: EdgeInsets.symmetric(horizontal: 10, vertical: 6)
-                          ),
+                              hintText: "Your Email",
+                              border: InputBorder.none,
+                              isDense: true,
+                              contentPadding: EdgeInsets.symmetric(
+                                  horizontal: 10, vertical: 6)),
                         ))
                       ],
                     ),
                   ),
                   Container(
                     width: double.infinity,
-                    margin: EdgeInsets.only(top: 20),
+                    margin: const EdgeInsets.only(top: 20),
                     child: const Text(
                       "Password",
                       style: TextStyle(
@@ -141,14 +138,12 @@ class _LoginInPageState extends State<LoginInPage> {
                     ),
                   ),
                   Container(
-                    margin: EdgeInsets.only(top: 10),
-                    padding: EdgeInsets.all(0),
+                    margin: const EdgeInsets.only(top: 10),
+                    padding: const EdgeInsets.all(0),
                     decoration: const BoxDecoration(
                         border: Border(
                             bottom: BorderSide(
-                                width: 1,
-                                color: AppColors.TEXT_INPUT_BORDER))
-                    ),
+                                width: 1, color: AppColors.TEXT_INPUT_BORDER))),
                     child: Row(
                       children: [
                         Image.asset(
@@ -158,20 +153,18 @@ class _LoginInPageState extends State<LoginInPage> {
                         ),
                         Expanded(
                             child: TextField(
-                              controller: passController,
-                              obscureText: true,
-                              enableSuggestions: false,
-                              autocorrect: false,
-                              style: const TextStyle(
-                                  fontSize: 14
-                              ),
-                              decoration: const InputDecoration(
-                                  hintText: "Your Password",
-                                  border: InputBorder.none,
-                                  isDense: true,
-                                  contentPadding: EdgeInsets.symmetric(horizontal: 10, vertical: 6)
-                              ),
-                            ))
+                          controller: passController,
+                          obscureText: true,
+                          enableSuggestions: false,
+                          autocorrect: false,
+                          style: const TextStyle(fontSize: 14),
+                          decoration: const InputDecoration(
+                              hintText: "Your Password",
+                              border: InputBorder.none,
+                              isDense: true,
+                              contentPadding: EdgeInsets.symmetric(
+                                  horizontal: 10, vertical: 6)),
+                        ))
                       ],
                     ),
                   ),
@@ -179,26 +172,27 @@ class _LoginInPageState extends State<LoginInPage> {
                     height: 42.0,
                     margin: const EdgeInsets.only(top: 50),
                     child: RaisedButton(
-                      onPressed: () => loginUser(emailController.text, passController.text),
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.0)),
-                      padding: EdgeInsets.all(0.0),
+                      onPressed: () =>
+                          loginUser(emailController.text, passController.text),
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(5.0)),
+                      padding: const EdgeInsets.all(0.0),
                       child: Ink(
                         decoration: BoxDecoration(
-                            gradient: const LinearGradient(colors: [Color(0xff4c669f), Color(0xff192f6a)],
+                            gradient: const LinearGradient(
+                              colors: [Color(0xff4c669f), Color(0xff192f6a)],
                               begin: Alignment.topCenter,
                               end: Alignment.bottomCenter,
                             ),
-                            borderRadius: BorderRadius.circular(5.0)
-                        ),
+                            borderRadius: BorderRadius.circular(5.0)),
                         child: Container(
-                          constraints: BoxConstraints(maxWidth: 400.0, minHeight: 50.0),
+                          constraints:
+                              const BoxConstraints(maxWidth: 400.0, minHeight: 50.0),
                           alignment: Alignment.center,
                           child: const Text(
                             "Login",
                             textAlign: TextAlign.center,
-                            style: TextStyle(
-                                color: Colors.white
-                            ),
+                            style: TextStyle(color: Colors.white),
                           ),
                         ),
                       ),
@@ -207,21 +201,18 @@ class _LoginInPageState extends State<LoginInPage> {
                   Container(
                     height: 40,
                     width: double.infinity,
-                    margin: EdgeInsets.only(top: 18),
+                    margin: const EdgeInsets.only(top: 18),
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(5.0),
-                      border: Border.all(
-                        width: 1,
-                        color: Color(0xff3b5998),
-                      )
-                    ),
+                        borderRadius: BorderRadius.circular(5.0),
+                        border: Border.all(
+                          width: 1,
+                          color: const Color(0xff3b5998),
+                        )),
                     child: const Center(
                       child: Text(
                         'Register',
                         textAlign: TextAlign.center,
-                        style: TextStyle(
-                          color: Color(0xff009387)
-                        ),
+                        style: TextStyle(color: Color(0xff009387)),
                       ),
                     ),
                   )
@@ -236,29 +227,36 @@ class _LoginInPageState extends State<LoginInPage> {
 
   loginUser(String email, String password) async {
 
-    bool isValidUser = await isUserVerified(email, password);
+    if (email.isEmpty){
 
-    if(isValidUser){
+      Fluttertoast.showToast(msg: "Please enter a valid email address");
+    }
 
-      print("valid");
+    else if(password.isEmpty){
+
+      Fluttertoast.showToast(msg: "Please enter password");
+    }
+    else if(await isUserVerified(email, password)){
+
+      Navigator.push(context,
+        MaterialPageRoute(builder: (context) => const HomeScreen()));
     }
     else{
-      print("Invalid");
+
     }
   }
 
   Future<bool> isUserVerified(String email, String pass) async {
-
     String password;
     bool isValid = false;
-    await firestoreInstance.collection("admins").where("email", isEqualTo: email)
-        .get().then((value) {
-
-      if(value.size != 0){
-
-          password = value.docs[0].get("password").toString();
-          isValid = pass == password ? true : false;
-
+    await firestoreInstance
+        .collection("admins")
+        .where("email", isEqualTo: email)
+        .get()
+        .then((value) {
+      if (value.size != 0) {
+        password = value.docs[0].get("password").toString();
+        isValid = pass == password ? true : false;
       }
     });
 
