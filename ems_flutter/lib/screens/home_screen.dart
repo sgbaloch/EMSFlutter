@@ -1,5 +1,6 @@
 import 'package:emsflutter/resources/AppColors.dart';
 import 'package:emsflutter/screens/add_employee.dart';
+import 'package:emsflutter/screens/employees.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -84,6 +85,10 @@ class HomeScreen extends StatelessWidget {
                         ),
                       ),
                       InkWell(
+                        onTap:() => {Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const Employees()))},
                         child: Ink(
                           width: 156,
                           height: 156,
