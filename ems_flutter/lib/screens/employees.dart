@@ -30,6 +30,12 @@ class _EmployeesState extends State<Employees> {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
+          appBar: AppBar(
+            leading: const BackButton(
+                color: Colors.white
+            ),
+            title: const Text("Employee List"),
+          ),
           body: FutureBuilder(
               future: initializeFirebaseApp(),
               builder: (context, snapshot) {
@@ -45,7 +51,7 @@ class _EmployeesState extends State<Employees> {
                           return const Text("Error! Something went wrong");
                         } else if (snapshot.hasData || snapshot.data != null) {
                           return Container(
-                            padding: const EdgeInsets.all(20),
+                            padding: const EdgeInsets.all(12),
                             child: ListView.builder(
                               itemCount: snapshot.data!.docs.length,
                               itemBuilder: (context, index) {
