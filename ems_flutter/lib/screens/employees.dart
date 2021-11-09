@@ -31,10 +31,9 @@ class _EmployeesState extends State<Employees> {
       debugShowCheckedModeBanner: false,
       home: Scaffold(
           appBar: AppBar(
-            leading: const BackButton(
-                color: Colors.white
-            ),
-            title: const Text("Employee List"),
+            backgroundColor: Colors.white,
+            leading: const BackButton(color: Colors.black),
+            title: const Text("Employee List", style: TextStyle(color: Colors.black),),
           ),
           body: FutureBuilder(
               future: initializeFirebaseApp(),
