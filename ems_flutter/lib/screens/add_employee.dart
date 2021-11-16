@@ -59,7 +59,8 @@ class _AddEmployeeState extends State<AddEmployee> {
                           color: Colors.grey.withOpacity(0.5),
                           spreadRadius: 1,
                           blurRadius: 2,
-                          offset: const Offset(0, 1), // changes position of shadow
+                          offset:
+                              const Offset(0, 1), // changes position of shadow
                         ),
                       ]),
                   child: Column(
@@ -77,41 +78,41 @@ class _AddEmployeeState extends State<AddEmployee> {
                         children: [
                           Expanded(
                               child: Container(
-                                margin: const EdgeInsets.only(right: 14),
-                                decoration: const BoxDecoration(
-                                    border: Border(
-                                        bottom: BorderSide(
-                                            width: 1,
-                                            color: AppColors.TEXT_INPUT_BORDER))),
-                                child: TextField(
-                                  controller: firstNController,
-                                  style: const TextStyle(fontSize: 14),
-                                  decoration: const InputDecoration(
-                                      hintText: "First Name",
-                                      border: InputBorder.none,
-                                      isDense: true,
-                                      contentPadding: EdgeInsets.symmetric(
-                                          horizontal: 10, vertical: 6)),
-                                ),
-                              )),
+                            margin: const EdgeInsets.only(right: 14),
+                            decoration: const BoxDecoration(
+                                border: Border(
+                                    bottom: BorderSide(
+                                        width: 1,
+                                        color: AppColors.TEXT_INPUT_BORDER))),
+                            child: TextField(
+                              controller: firstNController,
+                              style: const TextStyle(fontSize: 14),
+                              decoration: const InputDecoration(
+                                  hintText: "First Name",
+                                  border: InputBorder.none,
+                                  isDense: true,
+                                  contentPadding: EdgeInsets.symmetric(
+                                      horizontal: 10, vertical: 6)),
+                            ),
+                          )),
                           Expanded(
                               child: Container(
-                                decoration: const BoxDecoration(
-                                    border: Border(
-                                        bottom: BorderSide(
-                                            width: 1,
-                                            color: AppColors.TEXT_INPUT_BORDER))),
-                                child: TextField(
-                                  controller: lastNController,
-                                  style: const TextStyle(fontSize: 14),
-                                  decoration: const InputDecoration(
-                                      hintText: "Last Name",
-                                      border: InputBorder.none,
-                                      isDense: true,
-                                      contentPadding: EdgeInsets.symmetric(
-                                          horizontal: 10, vertical: 6)),
-                                ),
-                              ))
+                            decoration: const BoxDecoration(
+                                border: Border(
+                                    bottom: BorderSide(
+                                        width: 1,
+                                        color: AppColors.TEXT_INPUT_BORDER))),
+                            child: TextField(
+                              controller: lastNController,
+                              style: const TextStyle(fontSize: 14),
+                              decoration: const InputDecoration(
+                                  hintText: "Last Name",
+                                  border: InputBorder.none,
+                                  isDense: true,
+                                  contentPadding: EdgeInsets.symmetric(
+                                      horizontal: 10, vertical: 6)),
+                            ),
+                          ))
                         ],
                       ),
                       Container(
@@ -119,7 +120,8 @@ class _AddEmployeeState extends State<AddEmployee> {
                         decoration: const BoxDecoration(
                             border: Border(
                                 bottom: BorderSide(
-                                    width: 1, color: AppColors.TEXT_INPUT_BORDER))),
+                                    width: 1,
+                                    color: AppColors.TEXT_INPUT_BORDER))),
                         child: TextField(
                           controller: emailController,
                           style: const TextStyle(fontSize: 14),
@@ -136,7 +138,8 @@ class _AddEmployeeState extends State<AddEmployee> {
                         decoration: const BoxDecoration(
                             border: Border(
                                 bottom: BorderSide(
-                                    width: 1, color: AppColors.TEXT_INPUT_BORDER))),
+                                    width: 1,
+                                    color: AppColors.TEXT_INPUT_BORDER))),
                         child: TextField(
                           controller: contactController,
                           style: const TextStyle(fontSize: 14),
@@ -153,7 +156,8 @@ class _AddEmployeeState extends State<AddEmployee> {
                         decoration: const BoxDecoration(
                             border: Border(
                                 bottom: BorderSide(
-                                    width: 1, color: AppColors.TEXT_INPUT_BORDER))),
+                                    width: 1,
+                                    color: AppColors.TEXT_INPUT_BORDER))),
                         child: TextField(
                           controller: addressController,
                           style: const TextStyle(fontSize: 14),
@@ -170,7 +174,8 @@ class _AddEmployeeState extends State<AddEmployee> {
                         decoration: const BoxDecoration(
                             border: Border(
                                 bottom: BorderSide(
-                                    width: 1, color: AppColors.TEXT_INPUT_BORDER))),
+                                    width: 1,
+                                    color: AppColors.TEXT_INPUT_BORDER))),
                         child: TextField(
                           controller: designationController,
                           style: const TextStyle(fontSize: 14),
@@ -187,7 +192,8 @@ class _AddEmployeeState extends State<AddEmployee> {
                         decoration: const BoxDecoration(
                             border: Border(
                                 bottom: BorderSide(
-                                    width: 1, color: AppColors.TEXT_INPUT_BORDER))),
+                                    width: 1,
+                                    color: AppColors.TEXT_INPUT_BORDER))),
                         child: TextField(
                           controller: payController,
                           style: const TextStyle(fontSize: 14),
@@ -210,7 +216,10 @@ class _AddEmployeeState extends State<AddEmployee> {
                           child: Ink(
                             decoration: BoxDecoration(
                                 gradient: const LinearGradient(
-                                  colors: [Color(0xff4c669f), Color(0xff192f6a)],
+                                  colors: [
+                                    Color(0xff4c669f),
+                                    Color(0xff192f6a)
+                                  ],
                                   begin: Alignment.topCenter,
                                   end: Alignment.bottomCenter,
                                 ),
@@ -266,8 +275,8 @@ class _AddEmployeeState extends State<AddEmployee> {
         })
         .then((value) =>
             Fluttertoast.showToast(msg: "Employee added successfully"))
-        .catchError((error) =>
-            Fluttertoast.showToast(msg: "Something went wrong!"));
+        .catchError(
+            (error) => Fluttertoast.showToast(msg: "Something went wrong!"));
   }
 
   void disposeTextControllers() {
