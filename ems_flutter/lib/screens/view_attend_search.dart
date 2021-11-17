@@ -13,10 +13,6 @@ class ViewAttendSearch extends StatefulWidget {
   _ViewAttendSearchState createState() => _ViewAttendSearchState();
 }
 
-//const String MIN_DATETIME = '2010-05-12';
-//const String MAX_DATETIME = '2021-11-25';
-//const String INIT_DATETIME = '2019-05-17';
-
 class _ViewAttendSearchState extends State<ViewAttendSearch> {
   final empIdController = TextEditingController();
   String startDate =
@@ -200,21 +196,4 @@ class _ViewAttendSearchState extends State<ViewAttendSearch> {
     }
   }
 
-//  showDatePickerDialog() {
-//
-//    return DatePickerWidget(
-//        minDateTime: DateTime.parse(MIN_DATETIME),
-//    maxDateTime: DateTime.parse(MAX_DATETIME),
-//    initialDateTime: DateTime.parse(INIT_DATETIME),
-//    pickerTheme: DateTimePickerTheme(
-//    backgroundColor: Color(0xFFb2dfdb),
-//    cancelTextStyle: TextStyle(color: Colors.white),
-//    confirmTextStyle: TextStyle(color: Colors.black),
-//    itemTextStyle: TextStyle(color: Colors.deepOrange),
-//    pickerHeight: 300.0,
-//    titleHeight: 24.0,
-//    itemHeight: 30.0,
-//    ),
-//    );
-//  }
 }
