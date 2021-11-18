@@ -95,9 +95,9 @@ class _ViewAttendSearchState extends State<ViewAttendSearch> {
                                 onTap: () async {
                                   await DatePicker.showSimpleDatePicker(
                                     context,
-                                    initialDate: DateTime(1994),
+                                    initialDate: DateTime.now(),
                                     firstDate: DateTime(1960),
-                                    lastDate: DateTime(2012),
+                                    lastDate: DateTime(3000),
                                     dateFormat: "dd-MMMM-yyyy",
                                     locale: DateTimePickerLocale.en_us,
                                     looping: true,
@@ -135,9 +135,9 @@ class _ViewAttendSearchState extends State<ViewAttendSearch> {
                                 onTap: () async {
                                   await DatePicker.showSimpleDatePicker(
                                     context,
-                                    initialDate: DateTime(1994),
+                                    initialDate: DateTime.now(),
                                     firstDate: DateTime(1960),
-                                    lastDate: DateTime(2012),
+                                    lastDate: DateTime(3000),
                                     dateFormat: "dd-MMMM-yyyy",
                                     locale: DateTimePickerLocale.en_us,
                                     looping: true,

@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:emsflutter/resources/AppColors.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -18,16 +19,6 @@ class ViewAttendance extends StatefulWidget {
 }
 
 class _ViewAttendanceState extends State<ViewAttendance> {
-//  String empName = '';
-//
-//
-//  _ViewAttendanceState(){
-//
-//    getEmployeeName(widget.empId).then((value) => setState(() {
-//
-//      empName = value;
-//    }));
-//  }
 
   @override
   Widget build(BuildContext context) {
@@ -109,7 +100,119 @@ class _ViewAttendanceState extends State<ViewAttendance> {
                       textAlign: TextAlign.center,
                     ))
                   ],
-                )
+                ),
+                FutureBuilder(
+                    future: initializeFirebaseApp(),
+                    builder: (context, snapshot) {
+                      if (snapshot.hasError) {
+                        return const Text("Error! Something went wrong");
+                      } else if (snapshot.connectionState == ConnectionState.done) {
+                        return StreamBuilder<QuerySnapshot>(
+                            stream: FirebaseFirestore.instance
+                                .collection("attendance")
+                                .where('timeIn', isGreaterThanOrEqualTo: strDateToTimeStamp(widget.startDate))
+                                .where('timeIn', isLessThanOrEqualTo: strDateToTimeStamp(widget.endDate))
+                                .where('empId', isEqualTo: int.parse(widget.empId))
+                                .snapshots(),
+                            builder: (context, snapshot) {
+                              if (snapshot.hasError) {
+                                return const Text("Error! Something went wrong");
+                              } else if (snapshot.hasData || snapshot.data != null) {
+                                return Container(
+                                  padding: const EdgeInsets.all(12),
+                                  child: ListView.builder(
+                                    shrinkWrap: true,
+                                    itemCount: snapshot.data!.docs.length + 2,
+                                    itemBuilder: (context, index) {
+
+                                      if(index == 0){
+
+                                        return Row(
+                                          children: const [
+
+                                            Expanded(child: Text('This is header'))
+                                          ],
+                                        );
+                                      }
+
+                                      if(index == snapshot.data!.docs.length + 1){
+
+                                        return Row(
+                                          children: const [
+
+                                            Expanded(child: Text('This is header'))
+                                          ],
+                                        );
+                                      }
+
+                                      return Container(
+                                        padding: const EdgeInsets.all(10),
+                                        decoration: const BoxDecoration(
+                                            border: Border(
+                                                bottom: BorderSide(
+                                                    width: 1,
+                                                    color: AppColors.LIST_BORDER))),
+                                        child: Row(
+                                          children: [
+                                            Container(
+                                              padding: const EdgeInsets.all(8),
+                                              margin: const EdgeInsets.only(right: 8),
+                                              decoration: BoxDecoration(
+                                                  border: Border.all(
+                                                      color: AppColors.IMAGE_BORDER,
+                                                      width: 1.0),
+                                                  borderRadius:
+                                                  const BorderRadius.all(
+                                                      Radius.circular(30))),
+                                              child: Image.asset(
+                                                  'assets/images/employee.png',
+                                                  width: 44,
+                                                  height: 44),
+                                            ),
+                                            Column(
+                                              crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                              children: [
+                                                Text(
+                                                  timeStampToDateString(snapshot.data!.docs[index - 1]
+                                                      .get("timeIn")),
+                                                  style: const TextStyle(
+                                                      fontWeight: FontWeight.bold),
+                                                ),
+                                                Text(timeStampToDateString(snapshot.data!.docs[index - 1]
+                                                    .get("timeOut")))
+                                              ],
+                                            ),
+                                            Expanded(
+                                                flex: 1,
+                                                child: Align(
+                                                  alignment: Alignment.centerRight,
+                                                  child: Image.asset(
+                                                    'assets/images/menu.png',
+                                                    width: 15,
+                                                    height: 15,
+                                                  ),
+                                                ))
+                                          ],
+                                        ),
+                                      );
+                                    },
+                                  ),
+                                );
+                              }
+                              return const CircularProgressIndicator(
+                                valueColor: AlwaysStoppedAnimation<Color>(
+                                  Color(0xFFF57C00),
+                                ),
+                              );
+                            });
+                      }
+                      return const CircularProgressIndicator(
+                        valueColor: AlwaysStoppedAnimation<Color>(
+                          Color(0xFFF57C00),
+                        ),
+                      );
+                    })
               ],
             ),
           ),
@@ -157,5 +260,31 @@ class _ViewAttendanceState extends State<ViewAttendance> {
     });
 
     return designation;
+  }
+
+  Future<FirebaseApp> initializeFirebaseApp() async {
+    FirebaseApp firebaseApp = await Firebase.initializeApp();
+    return firebaseApp;
+  }
+
+  Timestamp strDateToTimeStamp(String date){
+
+    DateTime dateTime = DateFormat('EEE MMM d yyyy').parse(date);
+
+    return Timestamp.fromDate(dateTime);
+  }
+
+  String timeStampToDateString(Timestamp timestamp){
+
+    DateTime dateTime = timestamp.toDate();
+
+    return DateFormat('yMd').format(dateTime);
+  }
+
+  String timeStampToTimeString(Timestamp timestamp){
+
+    DateTime dateTime = timestamp.toDate();
+
+    return DateFormat.Hm().format(dateTime);
   }
 }
