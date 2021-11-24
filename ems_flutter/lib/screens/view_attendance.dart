@@ -19,6 +19,7 @@ class ViewAttendance extends StatefulWidget {
 }
 
 class _ViewAttendanceState extends State<ViewAttendance> {
+  List<QueryDocumentSnapshot> attendanceData = [];
 
   @override
   Widget build(BuildContext context) {
@@ -106,93 +107,155 @@ class _ViewAttendanceState extends State<ViewAttendance> {
                     builder: (context, snapshot) {
                       if (snapshot.hasError) {
                         return const Text("Error! Something went wrong");
-                      } else if (snapshot.connectionState == ConnectionState.done) {
+                      } else if (snapshot.connectionState ==
+                          ConnectionState.done) {
                         return StreamBuilder<QuerySnapshot>(
                             stream: FirebaseFirestore.instance
                                 .collection("attendance")
-                                .where('timeIn', isGreaterThanOrEqualTo: strDateToTimeStamp(widget.startDate))
-                                .where('timeIn', isLessThanOrEqualTo: strDateToTimeStamp(widget.endDate))
-                                .where('empId', isEqualTo: int.parse(widget.empId))
+                                .where('timeIn',
+                                    isGreaterThanOrEqualTo:
+                                        strDateToTimeStamp(widget.startDate))
+                                .where('timeIn',
+                                    isLessThanOrEqualTo:
+                                        strDateToTimeStamp(widget.endDate))
+                                .where('empId',
+                                    isEqualTo: int.parse(widget.empId))
                                 .snapshots(),
                             builder: (context, snapshot) {
                               if (snapshot.hasError) {
-                                return const Text("Error! Something went wrong");
-                              } else if (snapshot.hasData || snapshot.data != null) {
+                                return const Text(
+                                    "Error! Something went wrong");
+                              } else if (snapshot.hasData ||
+                                  snapshot.data != null) {
+                                attendanceData = snapshot.data!.docs;
                                 return Container(
-                                  padding: const EdgeInsets.all(12),
+                                  padding: const EdgeInsets.all(2),
                                   child: ListView.builder(
                                     shrinkWrap: true,
                                     itemCount: snapshot.data!.docs.length + 2,
                                     itemBuilder: (context, index) {
-
-                                      if(index == 0){
-
-                                        return Row(
-                                          children: const [
-
-                                            Expanded(child: Text('This is header'))
-                                          ],
+                                      if (index == 0) {
+                                        return Container(
+                                          margin: const EdgeInsets.symmetric(
+                                              vertical: 2),
+                                          padding: const EdgeInsets.symmetric(vertical: 2),
+                                          color: AppColors.PRIMARY,
+                                          child: Row(
+                                            children: [
+                                              Expanded(
+                                                  flex: 1,
+                                                  child: Text(
+                                                    'Date',
+                                                    style: headerTextStyle,
+                                                    textAlign: TextAlign.center,
+                                                  )),
+                                              Expanded(
+                                                  flex: 1,
+                                                  child: Text(
+                                                    'Time In',
+                                                    style: headerTextStyle,
+                                                    textAlign: TextAlign.center,
+                                                  )),
+                                              Expanded(
+                                                  flex: 1,
+                                                  child: Text(
+                                                    'Time Out',
+                                                    style: headerTextStyle,
+                                                    textAlign: TextAlign.center,
+                                                  )),
+                                              Expanded(
+                                                  flex: 1,
+                                                  child: Text(
+                                                    'Hours',
+                                                    style: headerTextStyle,
+                                                    textAlign: TextAlign.center,
+                                                  )),
+                                            ],
+                                          ),
                                         );
                                       }
 
-                                      if(index == snapshot.data!.docs.length + 1){
-
-                                        return Row(
-                                          children: const [
-
-                                            Expanded(child: Text('This is header'))
-                                          ],
+                                      if (index ==
+                                          snapshot.data!.docs.length + 1) {
+                                        return Container(
+                                          decoration: const BoxDecoration(
+                                            border: Border.symmetric(horizontal: BorderSide(width: 1))
+                                          ),
+                                          margin: const EdgeInsets.symmetric(
+                                              vertical: 5),
+                                          padding: const EdgeInsets.symmetric(vertical: 2),
+                                          child: Row(
+                                            children: [
+                                              const Expanded(
+                                                  flex: 3,
+                                                  child: Text(
+                                                    'Total Hours Worked',
+                                                    textAlign: TextAlign.right,
+                                                    style: TextStyle(
+                                                        fontWeight:
+                                                            FontWeight.bold),
+                                                  )),
+                                              Expanded(
+                                                  flex: 1,
+                                                  child: Text(
+                                                    getTotalHours(
+                                                        attendanceData),
+                                                    textAlign: TextAlign.center,
+                                                    style: const TextStyle(
+                                                        fontWeight:
+                                                            FontWeight.bold),
+                                                  ))
+                                            ],
+                                          ),
                                         );
                                       }
 
                                       return Container(
-                                        padding: const EdgeInsets.all(10),
-                                        decoration: const BoxDecoration(
-                                            border: Border(
-                                                bottom: BorderSide(
-                                                    width: 1,
-                                                    color: AppColors.LIST_BORDER))),
+                                        margin: const EdgeInsets.symmetric(
+                                            vertical: 5),
                                         child: Row(
                                           children: [
-                                            Container(
-                                              padding: const EdgeInsets.all(8),
-                                              margin: const EdgeInsets.only(right: 8),
-                                              decoration: BoxDecoration(
-                                                  border: Border.all(
-                                                      color: AppColors.IMAGE_BORDER,
-                                                      width: 1.0),
-                                                  borderRadius:
-                                                  const BorderRadius.all(
-                                                      Radius.circular(30))),
-                                              child: Image.asset(
-                                                  'assets/images/employee.png',
-                                                  width: 44,
-                                                  height: 44),
-                                            ),
-                                            Column(
-                                              crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                              children: [
-                                                Text(
-                                                  timeStampToDateString(snapshot.data!.docs[index - 1]
-                                                      .get("timeIn")),
-                                                  style: const TextStyle(
-                                                      fontWeight: FontWeight.bold),
-                                                ),
-                                                Text(timeStampToDateString(snapshot.data!.docs[index - 1]
-                                                    .get("timeOut")))
-                                              ],
-                                            ),
                                             Expanded(
                                                 flex: 1,
-                                                child: Align(
-                                                  alignment: Alignment.centerRight,
-                                                  child: Image.asset(
-                                                    'assets/images/menu.png',
-                                                    width: 15,
-                                                    height: 15,
-                                                  ),
-                                                ))
+                                                child: Text(
+                                                  timeStampToDateString(snapshot
+                                                      .data!.docs[index - 1]
+                                                      .get("timeIn")),
+                                                  style: listTextStyle,
+                                                  textAlign: TextAlign.center,
+                                                )),
+                                            Expanded(
+                                                flex: 1,
+                                                child: Text(
+                                                    timeStampToTimeString(
+                                                        snapshot.data!
+                                                            .docs[index - 1]
+                                                            .get("timeIn")),
+                                                    style: listTextStyle,
+                                                    textAlign:
+                                                        TextAlign.center)),
+                                            Expanded(
+                                                flex: 1,
+                                                child: Text(
+                                                  timeStampToTimeString(snapshot
+                                                      .data!.docs[index - 1]
+                                                      .get("timeOut")),
+                                                  style: listTextStyle,
+                                                  textAlign: TextAlign.center,
+                                                )),
+                                            Expanded(
+                                                flex: 1,
+                                                child: Text(
+                                                  getHoursWorked(
+                                                      snapshot
+                                                          .data!.docs[index - 1]
+                                                          .get("timeIn"),
+                                                      snapshot
+                                                          .data!.docs[index - 1]
+                                                          .get("timeOut")),
+                                                  style: listTextStyle,
+                                                  textAlign: TextAlign.center,
+                                                )),
                                           ],
                                         ),
                                       );
@@ -244,20 +307,14 @@ class _ViewAttendanceState extends State<ViewAttendance> {
   }
 
   Future<String> getEmployeeDesignation(String empId) async {
-
     String designation = '';
     await FirebaseFirestore.instance
         .collection('employees')
         .doc(empId)
         .get()
         .then((data) => {
-      if (data.exists)
-        {designation = data.get("designation")}
-      else
-        {
-
-        }
-    });
+              if (data.exists) {designation = data.get("designation")} else {}
+            });
 
     return designation;
   }
@@ -267,24 +324,62 @@ class _ViewAttendanceState extends State<ViewAttendance> {
     return firebaseApp;
   }
 
-  Timestamp strDateToTimeStamp(String date){
-
+  Timestamp strDateToTimeStamp(String date) {
     DateTime dateTime = DateFormat('EEE MMM d yyyy').parse(date);
-
     return Timestamp.fromDate(dateTime);
   }
 
-  String timeStampToDateString(Timestamp timestamp){
-
+  String timeStampToDateString(Timestamp timestamp) {
     DateTime dateTime = timestamp.toDate();
-
     return DateFormat('yMd').format(dateTime);
   }
 
-  String timeStampToTimeString(Timestamp timestamp){
-
+  String timeStampToTimeString(Timestamp timestamp) {
     DateTime dateTime = timestamp.toDate();
-
     return DateFormat.Hm().format(dateTime);
   }
+
+  String getHoursWorked(Timestamp timeIn, Timestamp timeOut) {
+    var hours = formatDuration(timeOut.toDate().difference(timeIn.toDate()));
+    return hours;
+  }
+
+  String formatDuration(Duration duration) {
+    String twoDigits(int n) => n.toString().padLeft(2, "0");
+    String twoDigitMinutes = twoDigits(duration.inMinutes.remainder(60));
+    return "${twoDigits(duration.inHours)}:$twoDigitMinutes";
+  }
+
+  String getTotalHours(List<QueryDocumentSnapshot> list) {
+    var totalHours = 0.0;
+
+    for (var element in list) {
+      Timestamp timeIn = element.get('timeIn');
+      Timestamp timeOut = element.get('timeOut');
+      var hours =
+          timeOut.toDate().difference(timeIn.toDate()).inMilliseconds / 3600000;
+      totalHours = totalHours + hours;
+    }
+
+    var hourStr = totalHours.floor().toString();
+    var minuteStr = ((totalHours % 1) * 60).round().toString();
+
+    if (hourStr.length < 2) {
+      hourStr = '0' + hourStr;
+    }
+
+    if (minuteStr.length < 2) {
+      minuteStr = "0" + minuteStr;
+    }
+
+    return hourStr + ':' + minuteStr;
+  }
+
+  TextStyle listTextStyle = const TextStyle(fontSize: 12);
+  TextStyle headerTextStyle =
+      const TextStyle(fontWeight: FontWeight.bold, color: Colors.white);
+
+//  snapshot
+//      .data!.docs[index - 1]
+//      .get("timeIn")
 }

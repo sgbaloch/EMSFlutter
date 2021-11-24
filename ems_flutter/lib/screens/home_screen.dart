@@ -1,6 +1,7 @@
 import 'package:emsflutter/resources/AppColors.dart';
 import 'package:emsflutter/screens/add_employee.dart';
 import 'package:emsflutter/screens/employees.dart';
+import 'package:emsflutter/screens/salary_screen.dart';
 import 'package:emsflutter/screens/view_attend_search.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -181,6 +182,13 @@ class HomeScreen extends StatelessWidget {
                                 ),
                               ),
                               InkWell(
+                                onTap: () => {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                          const SalaryScreen()))
+                                },
                                 child: Ink(
                                   width: 156,
                                   height: 156,

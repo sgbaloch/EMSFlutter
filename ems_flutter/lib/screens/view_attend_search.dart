@@ -14,6 +14,7 @@ class ViewAttendSearch extends StatefulWidget {
 }
 
 class _ViewAttendSearchState extends State<ViewAttendSearch> {
+
   final empIdController = TextEditingController();
   String startDate =
       DateFormat('EEE MMM d yyyy').format(DateTime.now()).toString();
