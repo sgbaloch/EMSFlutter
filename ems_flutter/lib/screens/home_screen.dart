@@ -187,7 +187,7 @@ class HomeScreen extends StatelessWidget {
                                       context,
                                       MaterialPageRoute(
                                           builder: (context) =>
-                                          const SalaryScreen()))
+                                              const SalaryScreen()))
                                 },
                                 child: Ink(
                                   width: 156,

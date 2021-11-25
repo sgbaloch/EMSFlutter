@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:emsflutter/Models/Employee.dart';
 import 'package:emsflutter/resources/AppColors.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -12,8 +11,6 @@ class Employees extends StatefulWidget {
 }
 
 class _EmployeesState extends State<Employees> {
-  List<Employee> empList = [];
-
   @override
   void initState() {
     // TODO: implement initState
@@ -32,8 +29,13 @@ class _EmployeesState extends State<Employees> {
       home: Scaffold(
           appBar: AppBar(
             backgroundColor: Colors.white,
-            leading: const BackButton(color: Colors.black),
-            title: const Text("Employee List", style: TextStyle(color: Colors.black),),
+            leading: BackButton(
+                onPressed: () => {Navigator.of(context).pop()},
+                color: Colors.black),
+            title: const Text(
+              "Employee List",
+              style: TextStyle(color: Colors.black),
+            ),
           ),
           body: FutureBuilder(
               future: initializeFirebaseApp(),
@@ -82,11 +84,24 @@ class _EmployeesState extends State<Employees> {
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
                                         children: [
-                                          Text(
-                                            snapshot.data!.docs[index]
-                                                .get("firstName"),
-                                            style: const TextStyle(
-                                                fontWeight: FontWeight.bold),
+                                          Row(
+                                            children: [
+                                              Text(
+                                                snapshot.data!.docs[index]
+                                                    .get("firstName"),
+                                                style: const TextStyle(
+                                                    fontWeight:
+                                                        FontWeight.bold),
+                                              ),
+                                              const SizedBox(width: 5),
+                                              Text(
+                                                snapshot.data!.docs[index]
+                                                    .get("lastName"),
+                                                style: const TextStyle(
+                                                    fontWeight:
+                                                        FontWeight.bold),
+                                              ),
+                                            ],
                                           ),
                                           Text(snapshot.data!.docs[index]
                                               .get("designation"))

@@ -24,6 +24,7 @@ class _ViewAttendanceState extends State<ViewAttendance> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       home: Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.white,
@@ -138,7 +139,8 @@ class _ViewAttendanceState extends State<ViewAttendance> {
                                         return Container(
                                           margin: const EdgeInsets.symmetric(
                                               vertical: 2),
-                                          padding: const EdgeInsets.symmetric(vertical: 2),
+                                          padding: const EdgeInsets.symmetric(
+                                              vertical: 2),
                                           color: AppColors.PRIMARY,
                                           child: Row(
                                             children: [
@@ -179,11 +181,13 @@ class _ViewAttendanceState extends State<ViewAttendance> {
                                           snapshot.data!.docs.length + 1) {
                                         return Container(
                                           decoration: const BoxDecoration(
-                                            border: Border.symmetric(horizontal: BorderSide(width: 1))
-                                          ),
+                                              border: Border.symmetric(
+                                                  horizontal:
+                                                      BorderSide(width: 1))),
                                           margin: const EdgeInsets.symmetric(
                                               vertical: 5),
-                                          padding: const EdgeInsets.symmetric(vertical: 2),
+                                          padding: const EdgeInsets.symmetric(
+                                              vertical: 2),
                                           child: Row(
                                             children: [
                                               const Expanded(
@@ -378,8 +382,4 @@ class _ViewAttendanceState extends State<ViewAttendance> {
   TextStyle listTextStyle = const TextStyle(fontSize: 12);
   TextStyle headerTextStyle =
       const TextStyle(fontWeight: FontWeight.bold, color: Colors.white);
-
-//  snapshot
-//      .data!.docs[index - 1]
-//      .get("timeIn")
 }

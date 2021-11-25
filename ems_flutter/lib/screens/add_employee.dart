@@ -1,7 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:emsflutter/Models/Employee.dart';
 import 'package:emsflutter/resources/AppColors.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
@@ -37,7 +35,9 @@ class _AddEmployeeState extends State<AddEmployee> {
       home: Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.white,
-          leading: const BackButton(color: Colors.black),
+          leading: BackButton(
+              onPressed: () => {Navigator.of(context).pop()},
+              color: Colors.black),
           title: const Text(
             "Add new employee",
             style: TextStyle(color: Colors.black),

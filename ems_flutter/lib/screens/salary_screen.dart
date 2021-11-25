@@ -14,20 +14,22 @@ class SalaryScreen extends StatefulWidget {
 }
 
 class _SalaryScreenState extends State<SalaryScreen> {
-
   final empIdController = TextEditingController();
   String startDate =
-  DateFormat('EEE MMM d yyyy').format(DateTime.now()).toString();
+      DateFormat('EEE MMM d yyyy').format(DateTime.now()).toString();
   String endDate =
-  DateFormat('EEE MMM d yyyy').format(DateTime.now()).toString();
+      DateFormat('EEE MMM d yyyy').format(DateTime.now()).toString();
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       home: Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.white,
-          leading: const BackButton(color: Colors.black),
+          leading: BackButton(
+              onPressed: () => {Navigator.of(context).pop()},
+              color: Colors.black),
           title: const Text(
             "Calculate Salary",
             style: TextStyle(color: Colors.black),
@@ -36,7 +38,7 @@ class _SalaryScreenState extends State<SalaryScreen> {
         body: SafeArea(
             child: Container(
                 padding:
-                const EdgeInsets.symmetric(vertical: 12, horizontal: 20),
+                    const EdgeInsets.symmetric(vertical: 12, horizontal: 20),
                 color: Colors.white,
                 height: double.infinity,
                 child: Wrap(
@@ -45,9 +47,9 @@ class _SalaryScreenState extends State<SalaryScreen> {
                       padding: const EdgeInsets.all(18),
                       decoration: BoxDecoration(
                           border:
-                          Border.all(width: 1, color: AppColors.PRIMARY),
+                              Border.all(width: 1, color: AppColors.PRIMARY),
                           borderRadius:
-                          const BorderRadius.all(Radius.circular(8))),
+                              const BorderRadius.all(Radius.circular(8))),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -89,7 +91,7 @@ class _SalaryScreenState extends State<SalaryScreen> {
                             width: double.infinity,
                             decoration: BoxDecoration(
                                 borderRadius:
-                                const BorderRadius.all(Radius.circular(8)),
+                                    const BorderRadius.all(Radius.circular(8)),
                                 border: Border.all(
                                     width: 1, color: AppColors.IMAGE_BORDER)),
                             child: InkWell(
@@ -103,14 +105,14 @@ class _SalaryScreenState extends State<SalaryScreen> {
                                     locale: DateTimePickerLocale.en_us,
                                     looping: true,
                                   ).then((date) => {
-                                    setState(() {
-                                      DateFormat formatter =
-                                      DateFormat('EEE MMM d yyyy');
-                                      String formatted =
-                                      formatter.format(date!);
-                                      startDate = formatted;
-                                    })
-                                  });
+                                        setState(() {
+                                          DateFormat formatter =
+                                              DateFormat('EEE MMM d yyyy');
+                                          String formatted =
+                                              formatter.format(date!);
+                                          startDate = formatted;
+                                        })
+                                      });
                                 },
                                 child: Ink(
                                   padding: const EdgeInsets.all(8),
@@ -129,7 +131,7 @@ class _SalaryScreenState extends State<SalaryScreen> {
                             width: double.infinity,
                             decoration: BoxDecoration(
                                 borderRadius:
-                                const BorderRadius.all(Radius.circular(8)),
+                                    const BorderRadius.all(Radius.circular(8)),
                                 border: Border.all(
                                     width: 1, color: AppColors.IMAGE_BORDER)),
                             child: InkWell(
@@ -143,14 +145,14 @@ class _SalaryScreenState extends State<SalaryScreen> {
                                     locale: DateTimePickerLocale.en_us,
                                     looping: true,
                                   ).then((date) => {
-                                    setState(() {
-                                      DateFormat formatter =
-                                      DateFormat('EEE MMM d yyyy');
-                                      String formatted =
-                                      formatter.format(date!);
-                                      endDate = formatted;
-                                    })
-                                  });
+                                        setState(() {
+                                          DateFormat formatter =
+                                              DateFormat('EEE MMM d yyyy');
+                                          String formatted =
+                                              formatter.format(date!);
+                                          endDate = formatted;
+                                        })
+                                      });
                                 },
                                 child: Ink(
                                   padding: const EdgeInsets.all(8),
@@ -168,8 +170,8 @@ class _SalaryScreenState extends State<SalaryScreen> {
                                 child: const Text("View Attendance"),
                                 style: ButtonStyle(
                                   backgroundColor:
-                                  MaterialStateProperty.all<Color>(
-                                      AppColors.BUTTON),
+                                      MaterialStateProperty.all<Color>(
+                                          AppColors.BUTTON),
                                 ),
                               ))
                         ],

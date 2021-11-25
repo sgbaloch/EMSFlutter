@@ -14,7 +14,6 @@ class ViewAttendSearch extends StatefulWidget {
 }
 
 class _ViewAttendSearchState extends State<ViewAttendSearch> {
-
   final empIdController = TextEditingController();
   String startDate =
       DateFormat('EEE MMM d yyyy').format(DateTime.now()).toString();
@@ -24,10 +23,13 @@ class _ViewAttendSearchState extends State<ViewAttendSearch> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       home: Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.white,
-          leading: const BackButton(color: Colors.black),
+          leading: BackButton(
+              onPressed: () => {Navigator.of(context).pop()},
+              color: Colors.black),
           title: const Text(
             "View Attendance",
             style: TextStyle(color: Colors.black),
@@ -196,5 +198,4 @@ class _ViewAttendSearchState extends State<ViewAttendSearch> {
           ));
     }
   }
-
 }

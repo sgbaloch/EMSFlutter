@@ -3,13 +3,16 @@ import 'package:emsflutter/screens/home_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import './resources/AppColors.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  runApp(const MyApp());
+
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
+      .then((value) => runApp(const MyApp()));
 }
 
 class MyApp extends StatelessWidget {
@@ -186,8 +189,8 @@ class _LoginInPageState extends State<LoginInPage> {
                             ),
                             borderRadius: BorderRadius.circular(5.0)),
                         child: Container(
-                          constraints:
-                              const BoxConstraints(maxWidth: 400.0, minHeight: 50.0),
+                          constraints: const BoxConstraints(
+                              maxWidth: 400.0, minHeight: 50.0),
                           alignment: Alignment.center,
                           child: const Text(
                             "Login",
@@ -226,24 +229,14 @@ class _LoginInPageState extends State<LoginInPage> {
   }
 
   loginUser(String email, String password) async {
-
-    if (email.isEmpty){
-
+    if (email.isEmpty) {
       Fluttertoast.showToast(msg: "Please enter a valid email address");
-    }
-
-    else if(password.isEmpty){
-
+    } else if (password.isEmpty) {
       Fluttertoast.showToast(msg: "Please enter password");
-    }
-    else if(await isUserVerified(email, password)){
-
-      Navigator.push(context,
-        MaterialPageRoute(builder: (context) => const HomeScreen()));
-    }
-    else{
-
-    }
+    } else if (await isUserVerified(email, password)) {
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => const HomeScreen()));
+    } else {}
   }
 
   Future<bool> isUserVerified(String email, String pass) async {
