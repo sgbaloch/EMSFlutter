@@ -28,7 +28,9 @@ class _ViewAttendanceState extends State<ViewAttendance> {
       home: Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.white,
-          leading: const BackButton(color: Colors.black),
+          leading: BackButton(
+              color: Colors.black,
+              onPressed: () => {Navigator.of(context).pop()}),
           title: const Text(
             "View Attendance",
             style: TextStyle(color: Colors.black),
